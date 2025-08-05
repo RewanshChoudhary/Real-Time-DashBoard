@@ -41,6 +41,5 @@ public class ConsumerFactoryConfig {
         factory.setConsumerFactory(consumerFactory());
 
         return factory;
-
     }
 }

@@ -9,14 +9,14 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.math.BigInteger;
+
 @Entity
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 
-public class Users {
+public class User_Data {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 
