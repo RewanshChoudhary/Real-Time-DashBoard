@@ -31,7 +31,7 @@ public void publishGameData(){
         GameScoreDto gameScore=buildGameScore();
         System.out.println("The data was sent");
 
-        kafkaTemplate.send("GameData",gameScore);
+        kafkaTemplate.send(,gameScore);
 
 
 }
