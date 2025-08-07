@@ -1,9 +1,10 @@
 package com.example.realtime_dashboard.config;
 
 import com.example.realtime_dashboard.configProperties.KafkaProperties;
+import lombok.RequiredArgsConstructor;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.common.serialization.StringDeserializer;
-import org.springframework.beans.factory.annotation.Value;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.annotation.EnableKafka;
@@ -17,8 +18,9 @@ import java.util.Map;
 
 @Configuration
 @EnableKafka
+@RequiredArgsConstructor
 public class ConsumerFactoryConfig {
-    private KafkaProperties kafkaProperties;
+    private final KafkaProperties kafkaProperties;
 
 
 
@@ -28,7 +30,7 @@ public class ConsumerFactoryConfig {
         configC.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG,kafkaProperties.getBootstrapServers());
         configC.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
         configC.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG,StringDeserializer.class);
-        configC.put(ConsumerConfig.GROUP_ID_CONFIG,kafkaProperties.getBootstrapGroupId());
+        configC.put(ConsumerConfig.GROUP_ID_CONFIG,kafkaProperties.getGroupId().toString());
 
 
         return new DefaultKafkaConsumerFactory<>(configC);

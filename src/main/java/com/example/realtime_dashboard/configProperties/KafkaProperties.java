@@ -14,7 +14,8 @@ import org.springframework.validation.annotation.Validated;
 
 public class KafkaProperties {
     private String bootstrapServers;
-    private String bootstrapGroupId;
+    private GroupId groupId;
+
     private Topic topic;
     @Data
 
@@ -23,6 +24,11 @@ public class KafkaProperties {
         private String leaderboardTopic;
 
     }
-
+    @Data
+public static class GroupId{
+        private String gamesScoreGroupid;
+        private String redisGameScoreGroupid;
+        private String redisLeaderboardGroupid;
+}
 
 }

@@ -1,5 +1,6 @@
 package com.example.realtime_dashboard.simulate;
 
+import com.example.realtime_dashboard.configProperties.KafkaProperties;
 import com.example.realtime_dashboard.dto.GameScoreDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.kafka.core.KafkaTemplate;
@@ -14,29 +15,31 @@ import java.util.Random;
 
 
 public class GameDataService {
+    private final KafkaProperties kafkaProperties;
 
 
-    private final KafkaTemplate<String, GameScoreDto>  kafkaTemplate;
-   @Scheduled(fixedRate = 1000)
-    public void spawnRecords(){
-        for (int i=0;i<2000;i++){
+    private final KafkaTemplate<String, GameScoreDto> kafkaTemplate;
+
+    @Scheduled(fixedRate = 1000)
+    public void spawnRecords() {
+        for (int i = 0; i < 2000; i++) {
             publishGameData();
 
         }
     }
 
 
-public void publishGameData(){
+    public void publishGameData() {
 
-        GameScoreDto gameScore=buildGameScore();
+        GameScoreDto gameScore = buildGameScore();
         System.out.println("The data was sent");
 
-        kafkaTemplate.send(,gameScore);
+        kafkaTemplate.send(kafkaProperties.getTopic().getGameScoreTopic(), gameScore);
 
 
-}
+    }
 
-private GameScoreDto buildGameScore() {
+    private GameScoreDto buildGameScore() {
         Random random = new Random();
         return GameScoreDto.builder()
                 .score(random.nextInt(100) + 1)
