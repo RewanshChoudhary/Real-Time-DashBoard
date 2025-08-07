@@ -1,5 +1,7 @@
 package com.example.realtime_dashboard.config;
 
+import com.example.realtime_dashboard.configProperties.KafkaProperties;
+import lombok.RequiredArgsConstructor;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.StringSerializer;
 import org.springframework.beans.factory.annotation.Value;
@@ -15,17 +17,16 @@ import java.util.Map;
 
 @Configuration
 @EnableKafka
+@RequiredArgsConstructor
 public class ProducerFactoryConfig {
-    @Value(value="${spring.kafka.bootstrap-servers}")
-
-    private String bootstrapServer;
+   private final KafkaProperties kafkaProperties;
 
 
     @Bean
     public ProducerFactory<String ,String > producerConfig(){
 
         Map<String,Object> configP=new HashMap<>();
-        configP.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG,bootstrapServer);
+        configP.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG,kafkaProperties.getBootstrapServers());
         configP.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
         configP.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
         return new DefaultKafkaProducerFactory<>(configP);

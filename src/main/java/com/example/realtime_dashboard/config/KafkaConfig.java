@@ -25,12 +25,7 @@ public class KafkaConfig {
         this.kafkaProperties = kafkaProperties;
     }
 
-    @Bean
-    public KafkaAdmin kafkaAdmin() {
-        Map<String, Object> config = new HashMap<>();
-        config.put(AdminClientConfig.BOOTSTRAP_SERVERS_CONFIG, kafkaProperties.getBootstrapServers());
-        return new KafkaAdmin(config);
-    }
+
 
     @Bean
     public NewTopic gameScoreTopic() {
